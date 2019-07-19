@@ -1,0 +1,9 @@
+Flask-SQLAlchemy
+Flask-Testing
+coverage
+flake8
+flask-restful
+psycopg2-binary
+python-dotenv
+black
+gunicorn
