@@ -8,8 +8,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './services/users:/usr/src/app'
-    ports:
-      - 5001:5000
+    expose:
+      - 5000
     environment:
       - FLASK_ENV=development
       - APP_SETTINGS=project.config.DevelopmentConfig
@@ -35,5 +35,21 @@ services:
     restart: always
     ports:
       - 80:80
+    depends_on:
+      - users
+      - client
+
+  client:
+    build:
+      context: ./services/client
+      dockerfile: Dockerfile
+    volumes:
+      - './services/client:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    expose:
+      - 3000
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_USERS_SERVICE_URL=http://127.0.0.1
     depends_on:
       - users
